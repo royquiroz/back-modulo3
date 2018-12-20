@@ -19,7 +19,11 @@ router.post("/register", (req, res) => {
       res.status(201).json({ msg: "Usuario creado con éxito" });
     })
     .catch(err => {
-      res.status(500).json({ err, msg: "Tu usuario no se pudo crear" });
+      console.log(err.code);
+
+      err.code === 11000
+        ? res.status(500).json({ err, msg: "Usuario ya existe" })
+        : res.status(400).json({ err, msg: "Hacen falta datos" });
     });
 });
 
@@ -31,14 +35,31 @@ router.post("/login", async (req, res) => {
   let validPassword = bcrypt.compareSync(req.body.password, user.password);
 
   if (!validPassword)
-    return res.status(500).json({ msg: "La contraseña es incorrecta" });
+    return res.status(401).json({ msg: "La contraseña es incorrecta" });
 
   const token = jwt.sign({ id: user._id }, process.env.SECRET, {
-    expiresIn: 8600
+    expiresIn: "5d"
   });
 
   delete user._doc.password;
   res.status(200).json({ user, token });
+});
+
+router.get("/:id", auth.verifyToken, (req, res) => {
+  User.findById(req.params.id).then(user => {
+    delete user._doc.password;
+    res
+      .status(202)
+      .json({
+        user
+      })
+      .catch(err => {
+        res.status(500).json({
+          err,
+          msg: "Usuario no existe en la BD"
+        });
+      });
+  });
 });
 
 router.patch("/:id", auth.verifyToken, (req, res) => {

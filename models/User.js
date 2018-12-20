@@ -13,6 +13,7 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
+      unique: true,
       required: "Campo de email es obligatorio"
     },
     password: {
@@ -24,7 +25,11 @@ const userSchema = new Schema(
       enum: ["LESSOR", "CLIENT"],
       default: "CLIENT"
     },
-    profile_pic: String,
+    profile_pic: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/royquiroz/image/upload/v1541363947/Tfixeo/male.png"
+    },
     description: String,
     places: {
       type: Schema.Types.ObjectId,

@@ -23,13 +23,12 @@ const placeSchema = new Schema(
       required: "El campo precio es obligatorio"
     },
     photos: [String],
-    dimensions: {
-      type: Number,
-      required: "El campo dimensiones es obligatorio"
-    },
-    address: {
+    /*address: {
       type: String,
       required: "El campo direccion es obligatorio"
+    },*/
+    description: {
+      type: String
     },
     reviews: [
       {

@@ -3,8 +3,9 @@ const router = express.Router();
 const Place = require("../models/Place");
 const User = require("../models/User");
 const auth = require("../helpers/auth");
+const upload = require("../helpers/multer");
 
-router.post("/", auth.verifyToken, (req, res) => {
+router.post("/", auth.verifyToken, upload.array("photos"), (req, res) => {
   Place.create(req.body)
     .then(place => {
       User.findByIdAndUpdate(place.lessee, {
@@ -24,7 +25,7 @@ router.post("/", auth.verifyToken, (req, res) => {
     });
 });
 
-router.get("/", auth.verifyToken, (req, res) => {
+router.get("/", (req, res) => {
   Place.find({ delete: false })
     .populate("lessee", "name last_name role profile_pic")
     .then(places => {
@@ -41,7 +42,7 @@ router.get("/", auth.verifyToken, (req, res) => {
     });
 });
 
-router.get("/:id", auth.verifyToken, (req, res) => {
+router.get("/:id", (req, res) => {
   Place.findById(req.params.id)
     .populate("lessee", "name last_name role profile_pic")
     .populate("reviews", "client raiting comment")

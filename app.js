@@ -40,7 +40,7 @@ app.use(cookieParser());
 // CORS
 app.use(
   cors({
-    origin: ["https://spacio.herokuapp.com/", "http://localhost:3000"]
+    origin: ["https://spacio.herokuapp.com/", "http://localhost:3001"]
   })
 );
 

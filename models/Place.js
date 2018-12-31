@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const placeSchema = new Schema(
   {
-    lessee: {
+    lessor: {
       type: Schema.Types.ObjectId,
       ref: "User"
     },
@@ -30,6 +30,12 @@ const placeSchema = new Schema(
     description: {
       type: String
     },
+    rents: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Rent"
+      }
+    ],
     reviews: [
       {
         type: Schema.Types.ObjectId,

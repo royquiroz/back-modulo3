@@ -6,6 +6,12 @@ const auth = require("../helpers/auth");
 const upload = require("../helpers/multer");
 
 router.post("/", auth.verifyToken, upload.array("photos"), (req, res) => {
+  console.log(req);
+  req.body.photos = req.files.map(file => {
+    console.log(file);
+    return file.url;
+  });
+
   Place.create(req.body)
     .then(place => {
       User.findByIdAndUpdate(place.lessee, {
@@ -44,7 +50,7 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   Place.findById(req.params.id)
-    .populate("lessee", "name last_name role profile_pic")
+    .populate("lessor", "name last_name profile_pic")
     .populate("reviews", "client raiting comment")
     .then(place => {
       res.status(200).json({

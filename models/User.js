@@ -34,7 +34,13 @@ const userSchema = new Schema(
     places: {
       type: Schema.Types.ObjectId,
       ref: "Place"
-    }
+    },
+    rents: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Rent"
+      }
+    ]
   },
   {
     timestamps: {

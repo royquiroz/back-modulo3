@@ -34,6 +34,7 @@ router.post("/", auth.verifyToken, upload.array("photos"), (req, res) => {
 router.get("/", (req, res) => {
   Place.find({ delete: false })
     .populate("lessee", "name last_name role profile_pic")
+    .populate("reviews", "raiting")
     .then(places => {
       res.status(200).json({
         places,
@@ -51,7 +52,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   Place.findById(req.params.id)
     .populate("lessor", "name last_name profile_pic")
-    .populate("reviews", "client raiting comment")
+    .populate({ path: "reviews", populate: { path: "client" } })
     .then(place => {
       res.status(200).json({
         place,

@@ -47,7 +47,8 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/:id", auth.verifyToken, (req, res) => {
-  User.findById(req.params.id).then(user => {
+  User.findById(req.params.id)
+  .then(user => {
     delete user._doc.password;
     res
       .status(202)

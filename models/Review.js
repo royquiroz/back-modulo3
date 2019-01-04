@@ -17,7 +17,7 @@ const reviewSchema = new Schema(
     },
     raiting: {
       type: Number,
-      default: 1
+      default: 0
     },
     comment: {
       type: String,

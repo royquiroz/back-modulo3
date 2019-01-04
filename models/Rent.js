@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const placeSchema = new Schema(
+const rentSchema = new Schema(
   {
     place: {
       type: Schema.Types.ObjectId,
@@ -16,6 +16,10 @@ const placeSchema = new Schema(
     },
     departure: {
       type: Date
+    },
+    isAccepted: {
+      type: Boolean,
+      default: false
     }
   },
   {
@@ -26,4 +30,4 @@ const placeSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model("Place", placeSchema);
+module.exports = mongoose.model("Rent", rentSchema);

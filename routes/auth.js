@@ -47,8 +47,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/:id", auth.verifyToken, (req, res) => {
-  User.findById(req.params.id)
-  .then(user => {
+  User.findById(req.params.id).then(user => {
     delete user._doc.password;
     res
       .status(202)
@@ -78,6 +77,9 @@ router.patch(
     if (req.file) {
       req.body.profile_pic = req.file.url;
     }
+    delete req.body._id;
+    console.log(req.body);
+
     User.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
       .then(user => {
         res.status(202).json({

@@ -40,6 +40,18 @@ const userSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "Rent"
       }
+    ],
+    sent: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Message"
+      }
+    ],
+    received: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Message"
+      }
     ]
   },
   {

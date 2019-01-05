@@ -67,10 +67,13 @@ const auth = require("./routes/auth");
 const place = require("./routes/place");
 const review = require("./routes/review");
 const rent = require("./routes/rent");
+const message = require("./routes/message");
+
 app.use("/", index);
 app.use("/api/auth", auth);
 app.use("/api/place", place);
 app.use("/api/review", review);
 app.use("/api/rent", rent);
+app.use("/api/message", message);
 
 module.exports = app;

@@ -77,8 +77,6 @@ router.patch(
     if (req.file) {
       req.body.profile_pic = req.file.url;
     }
-    delete req.body._id;
-    console.log(req.body);
 
     User.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
       .then(user => {

@@ -23,10 +23,8 @@ const placeSchema = new Schema(
       required: "El campo precio es obligatorio"
     },
     photos: [String],
-    /*address: {
-      type: String,
-      required: "El campo direccion es obligatorio"
-    },*/
+    lat: Number,
+    lng: Number,
     description: {
       type: String
     },

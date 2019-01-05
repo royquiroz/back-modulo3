@@ -28,7 +28,7 @@ const userSchema = new Schema(
     profile_pic: {
       type: String,
       default:
-        "https://res.cloudinary.com/royquiroz/image/upload/v1541363947/Tfixeo/male.png"
+        "https://res.cloudinary.com/royquiroz/image/upload/v1546149029/spacio/male.png"
     },
     description: String,
     places: {

@@ -8,13 +8,14 @@ router.post("/", (req, res) => {
   Rent.create(req.body).then(rent => {
     Place.findByIdAndUpdate(rent.place, {
       $push: { rents: rent._id }
-    }).then(() => {
+    }).then(place => {
       User.findByIdAndUpdate(rent.lessee, {
         $push: { rents: rent._id }
       })
         .then(() => {
           res.status(201).json({
             rent,
+            place,
             msg: "Solicitud de renta enviada exitosamente"
           });
         })

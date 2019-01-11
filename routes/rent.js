@@ -10,7 +10,7 @@ router.post("/", (req, res) => {
       $push: { rents: rent._id }
     }).then(place => {
       User.findByIdAndUpdate(rent.lessee, {
-        $push: { rents: rent._id }
+        $push: { favorites: rent.place }
       })
         .then(() => {
           res.status(201).json({

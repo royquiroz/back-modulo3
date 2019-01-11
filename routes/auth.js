@@ -47,20 +47,23 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/:id", auth.verifyToken, (req, res) => {
-  User.findById(req.params.id).then(user => {
-    delete user._doc.password;
-    res
-      .status(202)
-      .json({
-        user
-      })
-      .catch(err => {
-        res.status(500).json({
-          err,
-          msg: "Usuario no existe en la BD"
+  User.findById(req.params.id)
+    .populate("favorites")
+    .then(user => {
+      delete user._doc.password;
+      res
+        .status(202)
+        .json({
+          user,
+          msg: "Usuario encontrado exitosamente"
+        })
+        .catch(err => {
+          res.status(500).json({
+            err,
+            msg: "Usuario no existe en la BD"
+          });
         });
-      });
-  });
+    });
 });
 
 router.patch(

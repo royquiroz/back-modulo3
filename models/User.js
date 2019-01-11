@@ -30,6 +30,12 @@ const userSchema = new Schema(
       default:
         "https://res.cloudinary.com/royquiroz/image/upload/v1546149029/spacio/male.png"
     },
+    favorites: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Place"
+      }
+    ],
     description: String,
     places: {
       type: Schema.Types.ObjectId,

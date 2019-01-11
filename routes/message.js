@@ -31,8 +31,6 @@ router.post("/", (req, res) => {
 });
 
 router.get("/sender/:id", (req, res) => {
-  console.log(req.params.id);
-
   Message.find({ sender: req.params.id })
     .populate("addressee", "name last_name profile_pic")
     .then(messages => {
